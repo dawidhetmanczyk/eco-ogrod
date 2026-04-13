@@ -1,0 +1,29 @@
+{
+  "_info": "Edytuj tylko tablicę 'projects'. Jedna realizacja = jeden obiekt: title, images (lista adresów zdjęć), opcjonalnie video (URL do pliku .mp4/.webm lub link YouTube). Zdjęcia wrzuć np. do folderu /img/realizacje/ na serwerze i podaj ścieżki względne.",
+  "projects": [
+    {
+      "title": "Przykład — kilka zdjęć z jednej realizacji",
+      "images": [
+        "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=1200&q=75",
+        "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=75",
+        "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?auto=format&fit=crop&w=1200&q=75"
+      ],
+      "video": ""
+    },
+    {
+      "title": "Przykład — zdjęcia + krótki film (MP4 z sieci)",
+      "images": [
+        "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=75",
+        "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=75"
+      ],
+      "video": "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    {
+      "title": "Przykład — jedno zdjęcie (możesz dodać więcej w JSON)",
+      "images": [
+        "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=1200&q=75"
+      ],
+      "video": ""
+    }
+  ]
+}

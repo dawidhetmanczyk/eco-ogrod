@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, initial-scale=1.0">
+  <title>Eco-Ogród — plakat TikTok / wizytówka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a1a;
+      padding: 16px;
+    }
+    /* Klatka 9:16 pod TikTok (1080×1920) — zrób zrzut całej tej ramki */
+    .frame {
+      width: 1080px;
+      height: 1920px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      background-color: #0c1914;
+      background-image:
+        linear-gradient(to top, rgba(6, 24, 18, 0.92) 0%, rgba(6, 24, 18, 0.5) 38%, rgba(6, 78, 59, 0.18) 100%),
+        linear-gradient(to bottom, rgba(6, 78, 59, 0.6) 0%, transparent 42%),
+        url('https://images.unsplash.com/photo-1768407313789-0eccf91f67ca?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center 42%;
+      font-family: 'Outfit', system-ui, sans-serif;
+      color: #fff;
+    }
+    .frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 85% 55% at 50% 42%, rgba(0,0,0,0.38), transparent 62%);
+      pointer-events: none;
+    }
+    .inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 56px 140px;
+      text-align: center;
+    }
+    .panel {
+      max-width: 920px;
+      padding: 56px 48px 60px;
+      border-radius: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: linear-gradient(145deg, rgba(6, 40, 32, 0.78) 0%, rgba(12, 25, 22, 0.82) 100%);
+      box-shadow:
+        0 28px 60px -12px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .kicker {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(209, 250, 229, 0.95);
+      margin-bottom: 28px;
+    }
+    .brand {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 118px;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 32px rgba(0, 0, 0, 0.45);
+      margin-bottom: 36px;
+    }
+    .headline {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 52px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #fafaf9;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+      margin-bottom: 28px;
+    }
+    .sub {
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 1.45;
+      color: rgba(245, 245, 244, 0.95);
+      text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
+      margin-bottom: 48px;
+      max-width: 38ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      margin: 0 auto 40px;
+      max-width: 320px;
+    }
+    .tel {
+      display: block;
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-decoration: none;
+      text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+      margin-bottom: 28px;
+    }
+    .web {
+      font-size: 36px;
+      font-weight: 600;
+      color: rgba(167, 243, 208, 0.98);
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+    .mail {
+      font-size: 30px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.88);
+    }
+    .loc {
+      margin-top: 44px;
+      font-size: 24px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.72);
+      letter-spacing: 0.04em;
+    }
+    .badge {
+      margin-top: 52px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 28px;
+      border-radius: 999px;
+      background: rgba(6, 95, 70, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 22px;
+      font-weight: 600;
+      color: rgba(236, 253, 245, 0.95);
+    }
+    .hint {
+      position: absolute;
+      bottom: 28px;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      text-align: center;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.55);
+      padding: 0 40px;
+    }
+  </style>
+</head>
+<body>
+  <!--
+    JAK ZROBIĆ PNG NA TIKTOK:
+    1) Chrome: F12 → ikona urządzenia (Toggle device toolbar) → ustaw 1080 × 1920, zoom 100%.
+    2) Otwórz ten plik przez lokalny serwer (np. npx serve) albo z poziomu folderu — obraz tła ładuje się z sieci.
+    3) Zrób zrzut ekranu tylko obszaru .frame (Windows: Snipping Tool / Win+Shift+S po wyśrodkowaniu).
+    Albo: rozszerzenie „Full Page Screen Capture” z wybranym rozmiarem okna 1080×1920.
+  -->
+  <div class="frame" role="img" aria-label="Plakat Eco-Ogród na TikTok">
+    <div class="inner">
+      <div class="panel">
+        <p class="kicker">Całoroczny serwis zieleni</p>
+        <h1 class="brand">Eco-Ogród</h1>
+        <p class="headline">Zadbamy o Twój ogród i otoczenie</p>
+        <p class="sub">Pielęgnacja i aranżacja zieleni na Śląsku i w okolicy — blisko natury, z poszanowaniem środowiska.</p>
+        <div class="divider" aria-hidden="true"></div>
+        <a class="tel" href="tel:+48792080289">792 080 289</a>
+        <p class="web">www.eco-ogrod.com.pl</p>
+        <p class="mail">kontakt@eco-ogrod.com.pl</p>
+        <p class="loc">Wieszowa · województwo śląskie</p>
+        <div class="badge" aria-hidden="true">Darmowa wycena · zadzwoń lub napisz</div>
+      </div>
+    </div>
+    <p class="hint">Zdjęcie tła: Elly M / Unsplash · eco-ogrod.com.pl</p>
+  </div>
+</body>
+</html>
