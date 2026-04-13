@@ -18,6 +18,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1768407313789-0eccf91f67ca?auto=format&fit=crop&w=1200&q=75">
   <meta name="theme-color" content="#064e3b">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" sizes="any">
+  <link rel="apple-touch-icon" href="favicon.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -79,6 +81,8 @@
     }
     .hero-copy-panel {
       position: relative;
+      overflow: hidden;
+      isolation: isolate;
       background: linear-gradient(145deg, rgba(6, 40, 32, 0.72) 0%, rgba(12, 25, 22, 0.78) 100%);
       box-shadow:
         0 25px 50px -12px rgba(0, 0, 0, 0.55),
@@ -87,9 +91,72 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
-    @media (prefers-reduced-motion: no-preference) {
-      .hero-copy-panel {
-        animation: heroPanelGlow 5s ease-in-out infinite;
+    .hero-copy-panel > * {
+      position: relative;
+      z-index: 1;
+    }
+    /* Połysk przesuwany po szkle (nad tłem panelu, pod treścią) */
+    .hero-copy-panel::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      z-index: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(167, 243, 208, 0.15),
+        rgba(255, 255, 255, 0.08) 35%,
+        rgba(6, 95, 70, 0.35) 55%,
+        rgba(167, 243, 208, 0.12) 80%,
+        rgba(255, 255, 255, 0.06)
+      );
+      background-size: 220% 220%;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+    .hero-copy-panel::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -30%;
+      width: 55%;
+      height: 180%;
+      z-index: 0;
+      border-radius: 40%;
+      background: linear-gradient(
+        100deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.07) 45%,
+        rgba(236, 253, 245, 0.18) 50%,
+        rgba(255, 255, 255, 0.08) 55%,
+        transparent 100%
+      );
+      transform: rotate(28deg) translateX(-120%);
+      pointer-events: none;
+      mix-blend-mode: soft-light;
+    }
+    @keyframes heroPanelEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(1.75rem) scale(0.94);
+        filter: blur(10px);
+      }
+      70% {
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
       }
     }
     @keyframes heroPanelGlow {
@@ -103,9 +170,51 @@
       50% {
         box-shadow:
           0 28px 56px -12px rgba(0, 0, 0, 0.62),
-          0 0 0 1px rgba(255, 255, 255, 0.2),
-          0 0 40px -8px rgba(167, 243, 208, 0.12),
+          0 0 0 1px rgba(255, 255, 255, 0.22),
+          0 0 48px -6px rgba(167, 243, 208, 0.18),
+          0 0 80px -20px rgba(52, 211, 153, 0.08),
           inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+    }
+    @keyframes heroPanelBorderFlow {
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+    @keyframes heroPanelSheenSweep {
+      0% {
+        transform: rotate(28deg) translateX(-130%);
+        opacity: 0;
+      }
+      12% {
+        opacity: 1;
+      }
+      55% {
+        transform: rotate(28deg) translateX(120%);
+        opacity: 0.95;
+      }
+      56%,
+      100% {
+        transform: rotate(28deg) translateX(220%);
+        opacity: 0;
+      }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-copy-panel {
+        animation:
+          heroPanelEnter 1.15s cubic-bezier(0.22, 1, 0.36, 1) both,
+          heroPanelGlow 4.8s ease-in-out 1.15s infinite;
+      }
+      .hero-copy-panel::before {
+        animation: heroPanelBorderFlow 10s ease-in-out infinite;
+      }
+      .hero-copy-panel::after {
+        animation: heroPanelSheenSweep 6.5s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+        animation-delay: 0.9s;
       }
     }
     [data-reveal] {
@@ -180,6 +289,326 @@
       }
       .hero-copy-panel {
         animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+      .hero-copy-panel::before,
+      .hero-copy-panel::after {
+        animation: none !important;
+      }
+      .hero-copy-panel::after {
+        opacity: 0;
+        display: none;
+      }
+      .hero-perk-item,
+      .hero-perk-icon svg {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .hero-perk-icon::after {
+        display: none;
+      }
+      #ambient-mower {
+        display: none !important;
+      }
+    }
+
+    /* Mini kępa + kosiarka — losowy „easter egg” (fixed, nie blokuje kliknięć) */
+    #ambient-mower {
+      position: fixed;
+      z-index: 25;
+      width: 168px;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    #ambient-mower.ambient-mower--on {
+      opacity: 1;
+    }
+    .ambient-mower__inner {
+      position: relative;
+      height: 58px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1.5px solid rgba(15, 50, 30, 0.22);
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12),
+        0 2px 6px rgba(20, 83, 45, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      background: linear-gradient(180deg, rgba(236, 253, 245, 0.5) 0%, rgba(220, 245, 230, 0.25) 100%);
+    }
+    .ambient-mower__bed {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .ambient-mower__tuft {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    /* Warstwa „świeżo przystrzyżonej” murawy — odkrywana za kosiarką */
+    .ambient-mower__stripe {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(ellipse 95% 65% at 50% 88%, rgba(34, 110, 72, 0.35) 0%, transparent 72%),
+        repeating-linear-gradient(
+          92deg,
+          rgba(52, 130, 82, 0.95) 0 5px,
+          rgba(62, 145, 95, 0.9) 5px 10px
+        ),
+        linear-gradient(180deg, rgba(187, 247, 208, 0.55) 0%, rgba(34, 120, 78, 0.88) 42%, rgba(22, 90, 58, 0.92) 100%);
+      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.06);
+      clip-path: inset(0 100% 0 0);
+    }
+    .ambient-mower__chips {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .ambient-mower__chips span {
+      position: absolute;
+      bottom: 20px;
+      width: 7px;
+      height: 5px;
+      border-radius: 60% 60% 40% 40%;
+      background: linear-gradient(135deg, #bbf7d0 0%, #4ade80 100%);
+      border: 1px solid rgba(21, 80, 52, 0.35);
+      opacity: 0;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    }
+    .ambient-mower__chips span:nth-child(1) {
+      left: 38%;
+    }
+    .ambient-mower__chips span:nth-child(2) {
+      left: 44%;
+    }
+    .ambient-mower__chips span:nth-child(3) {
+      left: 50%;
+    }
+    .ambient-mower__mow-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+    }
+    .ambient-mower__mower {
+      position: absolute;
+      bottom: 4px;
+      left: -48px;
+      width: 48px;
+      height: 34px;
+      filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.22));
+    }
+    .ambient-mower__mower svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    @keyframes ambientChipFly {
+      0%,
+      12% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(0deg) scale(0.6);
+      }
+      18% {
+        opacity: 1;
+      }
+      38% {
+        opacity: 0.85;
+        transform: translate(-14px, -10px) rotate(-28deg) scale(1);
+      }
+      48%,
+      100% {
+        opacity: 0;
+        transform: translate(-22px, -4px) rotate(-40deg) scale(0.7);
+      }
+    }
+    @keyframes ambientChipFly2 {
+      0%,
+      14% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(0deg);
+      }
+      20% {
+        opacity: 1;
+      }
+      42% {
+        opacity: 0.75;
+        transform: translate(-18px, -14px) rotate(12deg);
+      }
+      52%,
+      100% {
+        opacity: 0;
+        transform: translate(-26px, -8px) rotate(20deg);
+      }
+    }
+    @keyframes ambientChipFly3 {
+      0%,
+      16% {
+        opacity: 0;
+        transform: translate(0, 0);
+      }
+      22% {
+        opacity: 0.95;
+      }
+      44% {
+        transform: translate(-10px, -16px) rotate(-15deg);
+      }
+      54%,
+      100% {
+        opacity: 0;
+        transform: translate(-16px, -6px) rotate(-22deg);
+      }
+    }
+    @keyframes ambientStripe {
+      0%,
+      7% {
+        clip-path: inset(0 100% 0 0);
+      }
+      55% {
+        clip-path: inset(0 0 0 0);
+      }
+      68%,
+      70% {
+        clip-path: inset(0 0 0 0);
+      }
+      71%,
+      100% {
+        clip-path: inset(0 100% 0 0);
+      }
+    }
+    @keyframes ambientMower {
+      0%,
+      7% {
+        left: -48px;
+      }
+      55% {
+        left: calc(100% - 26px);
+      }
+      68%,
+      70% {
+        left: calc(100% - 26px);
+      }
+      71%,
+      100% {
+        left: -48px;
+      }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .ambient-mower__inner--play .ambient-mower__stripe {
+        animation: ambientStripe 7.2s cubic-bezier(0.38, 0.02, 0.22, 1) forwards;
+      }
+      .ambient-mower__inner--play .ambient-mower__mower {
+        animation: ambientMower 7.2s cubic-bezier(0.38, 0.02, 0.22, 1) forwards;
+      }
+      .ambient-mower__inner--play .ambient-mower__chips span:nth-child(1) {
+        animation: ambientChipFly 7.2s cubic-bezier(0.38, 0.02, 0.22, 1) forwards;
+      }
+      .ambient-mower__inner--play .ambient-mower__chips span:nth-child(2) {
+        animation: ambientChipFly2 7.2s cubic-bezier(0.38, 0.02, 0.22, 1) forwards;
+      }
+      .ambient-mower__inner--play .ambient-mower__chips span:nth-child(3) {
+        animation: ambientChipFly3 7.2s cubic-bezier(0.38, 0.02, 0.22, 1) forwards;
+      }
+    }
+
+    /* Hero: lista zalet — wejście + ikony */
+    @keyframes heroPerkReveal {
+      from {
+        opacity: 0;
+        transform: translateY(1rem) scale(0.94);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    @keyframes heroIconRingPulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.55;
+      }
+      55% {
+        opacity: 0.2;
+      }
+      100% {
+        transform: scale(1.45);
+        opacity: 0;
+      }
+    }
+    @keyframes heroPerkShimmer {
+      0%,
+      100% {
+        filter: drop-shadow(0 0 0 transparent);
+      }
+      50% {
+        filter: drop-shadow(0 0 6px rgba(167, 243, 208, 0.45));
+      }
+    }
+    .hero-perk-list {
+      perspective: 600px;
+    }
+    .hero-perk-item {
+      opacity: 0;
+      animation: heroPerkReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .hero-perk-item:nth-child(1) {
+      animation-delay: 0.58s;
+    }
+    .hero-perk-item:nth-child(2) {
+      animation-delay: 0.76s;
+    }
+    .hero-perk-item:nth-child(3) {
+      animation-delay: 0.94s;
+    }
+    .hero-perk-icon {
+      position: relative;
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 9999px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.28) 0%, rgba(167, 243, 208, 0.12) 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 4px 14px rgba(0, 0, 0, 0.28);
+      color: rgba(255, 255, 255, 0.95);
+    }
+    .hero-perk-icon::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: inherit;
+      border: 1px solid rgba(167, 243, 208, 0.4);
+      pointer-events: none;
+      animation: heroIconRingPulse 2.75s ease-out infinite;
+    }
+    .hero-perk-item:nth-child(1) .hero-perk-icon::after {
+      animation-delay: 0s;
+    }
+    .hero-perk-item:nth-child(2) .hero-perk-icon::after {
+      animation-delay: 0.92s;
+    }
+    .hero-perk-item:nth-child(3) .hero-perk-icon::after {
+      animation-delay: 1.84s;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-perk-icon svg {
+        animation: heroPerkShimmer 2.4s ease-in-out infinite;
+      }
+      .hero-perk-item:nth-child(2) .hero-perk-icon svg {
+        animation-delay: 0.35s;
+      }
+      .hero-perk-item:nth-child(3) .hero-perk-icon svg {
+        animation-delay: 0.7s;
       }
     }
   </style>
@@ -209,6 +638,82 @@
   </script>
 </head>
 <body class="bg-neutral-50 font-sans text-neutral-700 antialiased">
+
+  <div id="ambient-mower" hidden aria-hidden="true">
+    <div class="ambient-mower__inner">
+      <div class="ambient-mower__bed">
+        <svg class="ambient-mower__tuft" viewBox="0 0 168 58" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="ambient-turf-blade" x1="84" y1="56" x2="84" y2="2" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#0f2918"/>
+              <stop offset="38%" stop-color="#166534"/>
+              <stop offset="72%" stop-color="#22c55e"/>
+              <stop offset="100%" stop-color="#d9f99d"/>
+            </linearGradient>
+            <linearGradient id="ambient-turf-soil" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#5c4033"/>
+              <stop offset="50%" stop-color="#3d2918"/>
+              <stop offset="100%" stop-color="#2a1810"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="84" cy="54" rx="78" ry="10" fill="rgba(34, 100, 65, 0.12)"/>
+          <path
+            fill="url(#ambient-turf-soil)"
+            stroke="#1a0f0a"
+            stroke-width="0.9"
+            stroke-linejoin="round"
+            d="M48 56c-2-4 2-9 8-11 6-3 14-2 20 0 8-3 18-4 26-1 7 2 12 7 14 12-18 2-42 2-68 0z"
+          />
+          <path fill="#4a3428" opacity="0.45" d="M58 52c10-2 22-2 34 0 8 1 14 3 18 5-16-3-36-4-52-5z"/>
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="url(#ambient-turf-blade)" stroke-width="2.2" d="M62 50 Q58 32 52 14"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="2" d="M70 51 Q66 28 64 10"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="2.4" d="M78 52 Q72 26 74 8"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="2.1" d="M86 51 Q82 24 86 6"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="2.5" d="M94 52 Q90 22 96 7"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="2" d="M102 51 Q100 26 104 11"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="2.2" d="M110 50 Q108 30 112 16"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="1.8" d="M54 49 Q50 36 46 22"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="1.9" d="M118 49 Q116 34 120 20"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="2" d="M76 48 Q70 38 68 26"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="2" d="M92 48 Q96 36 100 24"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="1.7" d="M84 50 Q80 40 82 28"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="1.6" d="M66 47 Q62 40 60 30"/>
+            <path stroke="url(#ambient-turf-blade)" stroke-width="1.6" d="M102 47 Q106 40 108 30"/>
+          </g>
+        </svg>
+        <div class="ambient-mower__stripe"></div>
+        <div class="ambient-mower__chips" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="ambient-mower__mow-wrap">
+        <div class="ambient-mower__mower">
+          <svg viewBox="0 0 100 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g fill="none" stroke="#0f172a" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round">
+              <path fill="#dc2626" d="M12 38h62c3 0 6-2 7-5l6-14c1-2-1-4-3-4H22c-4 0-7 3-8 7l-4 12c-1 3 1 4 2 4z"/>
+              <path fill="#b91c1c" d="M18 36h52l5-12H25l-7 10c-1 2 0 2 0 2z" opacity="0.35"/>
+              <rect x="48" y="14" width="34" height="18" rx="3" fill="#6b7280"/>
+              <rect x="51" y="17" width="28" height="8" rx="1.5" fill="#9ca3af"/>
+              <path fill="#374151" d="M72 14V9c0-2-2-3-4-3H54c-2 0-4 1-4 3v5"/>
+              <circle cx="24" cy="42" r="7" fill="#111827"/>
+              <circle cx="24" cy="42" r="3.2" fill="#f3f4f6"/>
+              <circle cx="24" cy="42" r="1.4" fill="#9ca3af"/>
+              <circle cx="72" cy="42" r="7" fill="#111827"/>
+              <circle cx="72" cy="42" r="3.2" fill="#f3f4f6"/>
+              <circle cx="72" cy="42" r="1.4" fill="#9ca3af"/>
+              <circle cx="88" cy="40" r="4.5" fill="#111827"/>
+              <circle cx="88" cy="40" r="2" fill="#f3f4f6"/>
+              <path stroke-width="2.2" d="M78 16c10-8 18-12 22-12"/>
+              <path stroke-width="2.2" d="M100 4v6"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-2xl focus:bg-emerald-900 focus:px-4 focus:py-2 focus:text-white focus:shadow-lg">Przejdź do treści</a>
 
@@ -259,10 +764,25 @@
             <a href="tel:+48792080289" class="inline-flex min-h-[52px] items-center justify-center rounded-3xl border border-white/55 bg-white/15 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/80 hover:bg-white/25 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-white/45 active:translate-y-0">Zadzwoń</a>
             <a href="#uslugi" class="inline-flex min-h-[52px] items-center justify-center rounded-3xl border border-white/50 bg-white/10 px-7 py-3.5 text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/22 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 active:translate-y-0">Nasze usługi</a>
           </div>
-          <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium text-emerald-50/95 [text-shadow:0_1px_8px_rgba(0,0,0,0.45)] sm:gap-x-7" aria-label="Krótko o współpracy">
-            <li class="flex items-center gap-2"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-xs font-bold text-white" aria-hidden="true">✓</span> Odpowiadamy sprawnie</li>
-            <li class="flex items-center gap-2"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-xs font-bold text-white" aria-hidden="true">✓</span> Domy, firmy, wspólnoty</li>
-            <li class="flex items-center gap-2"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-xs font-bold text-white" aria-hidden="true">✓</span> Całorocznie — nie tylko sezon</li>
+          <ul class="hero-perk-list mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-medium text-emerald-50/95 [text-shadow:0_1px_8px_rgba(0,0,0,0.45)] sm:gap-x-8 sm:gap-y-3" aria-label="Krótko o współpracy">
+            <li class="hero-perk-item flex items-center gap-2.5">
+              <span class="hero-perk-icon" aria-hidden="true">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L11.967 13.5h3.75a.75.75 0 01.482 1.331l-7.5 6.25a.75.75 0 01-1.233-.72l1.65-9.821H5.25a.75.75 0 01-.545-1.233l7.5-8.25a.75.75 0 01.91-.131z" clip-rule="evenodd"/></svg>
+              </span>
+              Odpowiadamy sprawnie
+            </li>
+            <li class="hero-perk-item flex items-center gap-2.5">
+              <span class="hero-perk-icon" aria-hidden="true">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m2.25-18v18m13.5-18v18M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
+              </span>
+              Domy, firmy, wspólnoty
+            </li>
+            <li class="hero-perk-item flex items-center gap-2.5">
+              <span class="hero-perk-icon" aria-hidden="true">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5a2.25 2.25 0 002.25-2.25m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5a2.25 2.25 0 012.25 2.25v7.5"/></svg>
+              </span>
+              Całorocznie — nie tylko sezon
+            </li>
           </ul>
         </div>
       </div>
@@ -318,8 +838,8 @@
       </div>
     </section>
 
-    <section id="uslugi" class="scroll-mt-24 py-20 sm:py-24">
-      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <section id="uslugi" class="scroll-mt-24 bg-gradient-to-b from-white via-stone-50/40 to-emerald-50/25 py-20 sm:py-24">
+      <div class="relative z-[5] mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <h2 class="mb-3 text-center font-display text-3xl font-semibold tracking-tight text-emerald-950 sm:text-4xl" data-reveal>Usługi</h2>
         <p class="mx-auto max-w-xl text-center text-lg font-medium text-emerald-900/90" data-reveal style="--reveal-delay: 40ms">W czym możemy Ci pomóc</p>
         <div class="mx-auto mb-12 mt-4 max-w-2xl space-y-2 text-center text-sm leading-relaxed text-neutral-600 sm:text-base" data-reveal style="--reveal-delay: 70ms">
@@ -329,7 +849,7 @@
         <div class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           <article class="group flex flex-col rounded-3xl border border-emerald-900/15 bg-gradient-to-br from-emerald-50/90 to-white p-7 shadow-sm shadow-emerald-900/5 ring-1 ring-emerald-900/5 transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-800/30 hover:shadow-lg hover:shadow-emerald-900/10" data-reveal style="--reveal-delay: 0ms">
             <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100/90 text-emerald-900 ring-1 ring-emerald-200/90 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3" aria-hidden="true">
-              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M4 21h16M6 21V10l6-4 6 4v11M10 21v-6h4v6"/></svg>
+              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z"/></svg>
             </div>
             <h3 class="mb-2 font-display text-xl font-semibold tracking-tight text-emerald-950">Projektowanie i aranżacja</h3>
             <p class="mb-3 text-xs font-medium uppercase tracking-wide text-emerald-800/70">Koncepcja · materiały · styl</p>
@@ -337,7 +857,7 @@
           </article>
           <article class="group flex flex-col rounded-3xl border border-teal-800/15 bg-gradient-to-br from-teal-50/80 to-white p-7 shadow-sm shadow-teal-900/5 ring-1 ring-teal-800/5 transition-all duration-300 hover:-translate-y-1.5 hover:border-teal-700/35 hover:shadow-lg hover:shadow-teal-900/10" data-reveal style="--reveal-delay: 80ms">
             <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-100/85 text-teal-900 ring-1 ring-teal-200/80 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3" aria-hidden="true">
-              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-4h6v4"/></svg>
+              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
             </div>
             <h3 class="mb-2 font-display text-xl font-semibold tracking-tight text-teal-950">Pielęgnacja trawników</h3>
             <p class="mb-3 text-xs font-medium uppercase tracking-wide text-teal-800/70">Koszenie · nawożenie · regeneracja</p>
@@ -345,7 +865,7 @@
           </article>
           <article class="group flex flex-col rounded-3xl border border-amber-900/12 bg-gradient-to-br from-amber-50/70 to-stone-50/50 p-7 shadow-sm shadow-amber-900/5 ring-1 ring-amber-900/5 transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-800/28 hover:shadow-lg hover:shadow-amber-900/10" data-reveal style="--reveal-delay: 160ms">
             <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-100/90 text-amber-950 ring-1 ring-amber-200/80 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3" aria-hidden="true">
-              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
             </div>
             <h3 class="mb-2 font-display text-xl font-semibold tracking-tight text-amber-950">Sadzenie roślin</h3>
             <p class="mb-3 text-xs font-medium uppercase tracking-wide text-amber-900/70">Byliny · krzewy · drzewa</p>
@@ -353,7 +873,7 @@
           </article>
           <article class="group flex flex-col rounded-3xl border border-slate-300/70 bg-gradient-to-br from-slate-50 to-white p-7 shadow-sm shadow-slate-300/30 ring-1 ring-slate-200/80 transition-all duration-300 hover:-translate-y-1.5 hover:border-slate-400 hover:shadow-lg hover:shadow-slate-400/15" data-reveal style="--reveal-delay: 240ms">
             <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-200/90 text-slate-800 ring-1 ring-slate-300/90 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3" aria-hidden="true">
-              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1M5.64 5.64l.71.71m11.3 11.3l.71.71M3 12h1m16 0h1M5.64 18.36l.71-.71M17.66 6.34l.71-.71"/><circle cx="12" cy="12" r="4"/></svg>
+              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"/></svg>
             </div>
             <h3 class="mb-2 font-display text-xl font-semibold tracking-tight text-slate-900">Całoroczne utrzymanie zieleni</h3>
             <p class="mb-3 text-xs font-medium uppercase tracking-wide text-slate-600">Abonament · harmonogram · raport</p>
@@ -361,7 +881,7 @@
           </article>
           <article class="group flex flex-col rounded-3xl border border-green-800/14 bg-gradient-to-br from-green-50/75 to-white p-7 shadow-sm shadow-green-900/5 ring-1 ring-green-800/5 transition-all duration-300 hover:-translate-y-1.5 hover:border-green-800/30 hover:shadow-lg hover:shadow-green-900/10" data-reveal style="--reveal-delay: 320ms">
             <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100/90 text-green-900 ring-1 ring-green-200/80 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3" aria-hidden="true">
-              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M12 22v-8m0 0V6m0 8c-2-1-4-3-4-6a4 4 0 118 0c0 3-2 5-4 6z"/></svg>
+              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
             </div>
             <h3 class="mb-2 font-display text-xl font-semibold tracking-tight text-green-950">Wycinka i przycinanie drzew</h3>
             <p class="mb-3 text-xs font-medium uppercase tracking-wide text-green-900/70">Wysokość · bezpieczeństwo · zdrowie koron</p>
@@ -369,7 +889,7 @@
           </article>
           <article class="group flex flex-col rounded-3xl border border-violet-900/14 bg-gradient-to-br from-violet-50/85 to-white p-7 shadow-sm shadow-violet-900/5 ring-1 ring-violet-800/10 transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-700/35 hover:shadow-lg hover:shadow-violet-900/10" data-reveal style="--reveal-delay: 400ms">
             <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-100/90 text-violet-900 ring-1 ring-violet-200/80 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3" aria-hidden="true">
-              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6 20V9h3v11"/><path d="M10.5 20V6h3v14"/><path d="M15 20v-8h3v8"/></svg>
+              <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m7.848 8.25 1.536.887M7.848 8.25a3 3 0 1 1-5.196-3 3 3 0 0 1 5.196 3Zm1.536.887a2.165 2.165 0 0 1 1.083 1.839c.005.351.054.695.14 1.024M9.384 9.137l2.077 1.199M7.848 15.75l1.536-.887m-1.536.887a3 3 0 1 1-5.196 3 3 3 0 0 1 5.196-3Zm1.536-.887a2.165 2.165 0 0 0 1.083-1.838c.005-.352.054-.695.14-1.025m-1.223 2.863 2.077-1.199m0-3.328a4.323 4.323 0 0 1 2.068-1.379l5.325-1.628a4.5 4.5 0 0 1 2.48-.044l.803.215-7.794 4.5m-2.882-1.664A4.33 4.33 0 0 0 10.607 12m3.736 0 7.794 4.5-.802.215a4.5 4.5 0 0 1-2.48-.043l-5.326-1.629a4.324 4.324 0 0 1-2.068-1.379M14.343 12l-2.882 1.664"/></svg>
             </div>
             <h3 class="mb-2 font-display text-xl font-semibold tracking-tight text-violet-950">Żywopłoty i krzewy</h3>
             <p class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-800/75">Formowanie · przycinanie · odmładzanie</p>
@@ -941,6 +1461,124 @@
             renderGrid();
           });
       })();
+    })();
+  </script>
+  <script>
+    (function () {
+      var root = document.getElementById('ambient-mower');
+      if (!root) return;
+      var inner = root.querySelector('.ambient-mower__inner');
+      var stripe = root.querySelector('.ambient-mower__stripe');
+      if (!inner || !stripe) return;
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (reduce.matches) return;
+
+      var modal = document.getElementById('galeria-modal');
+      var minGap = 28000;
+      var maxGap = 55000;
+      var fadeMs = 520;
+      var animFallbackMs = 7800;
+      var timer = null;
+      var busy = false;
+      var runGen = 0;
+
+      function rand(a, b) {
+        return a + Math.random() * (b - a);
+      }
+
+      function schedule() {
+        if (reduce.matches) return;
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(run, rand(minGap, maxGap));
+      }
+
+      function cleanup() {
+        inner.classList.remove('ambient-mower__inner--play');
+        root.classList.remove('ambient-mower--on');
+        root.setAttribute('hidden', '');
+        busy = false;
+        schedule();
+      }
+
+      function run() {
+        if (busy || reduce.matches) {
+          schedule();
+          return;
+        }
+        if (document.hidden) {
+          schedule();
+          return;
+        }
+        if (modal && modal.classList.contains('is-open')) {
+          schedule();
+          return;
+        }
+
+        busy = true;
+        var gen = ++runGen;
+        root.style.top = rand(18, 78) + 'vh';
+        root.style.left = rand(10, 88) + 'vw';
+        root.removeAttribute('hidden');
+
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            if (gen !== runGen) return;
+            root.classList.add('ambient-mower--on');
+            inner.classList.add('ambient-mower__inner--play');
+          });
+        });
+
+        var done = false;
+
+        function finish() {
+          if (gen !== runGen || done) return;
+          done = true;
+          root.classList.remove('ambient-mower--on');
+          setTimeout(cleanup, fadeMs);
+        }
+
+        function onStripeEnd(e) {
+          if (gen !== runGen || e.animationName !== 'ambientStripe') return;
+          stripe.removeEventListener('animationend', onStripeEnd);
+          finish();
+        }
+
+        stripe.addEventListener('animationend', onStripeEnd);
+        setTimeout(function () {
+          if (gen !== runGen) return;
+          stripe.removeEventListener('animationend', onStripeEnd);
+          finish();
+        }, animFallbackMs);
+      }
+
+      reduce.addEventListener('change', function () {
+        if (reduce.matches) {
+          runGen++;
+          if (timer) clearTimeout(timer);
+          timer = null;
+          root.setAttribute('hidden', '');
+          root.classList.remove('ambient-mower--on');
+          inner.classList.remove('ambient-mower__inner--play');
+          busy = false;
+        } else {
+          schedule();
+        }
+      });
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          if (timer) {
+            clearTimeout(timer);
+            timer = null;
+          }
+        } else if (!busy && !reduce.matches) {
+          schedule();
+        }
+      });
+
+      if (document.readyState === 'complete') schedule();
+      else window.addEventListener('load', schedule);
     })();
   </script>
 </body>
