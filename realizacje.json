@@ -19,11 +19,11 @@
       "video": "https://www.w3schools.com/html/mov_bbb.mp4"
     },
     {
-      "title": "Przykład — jedno zdjęcie (możesz dodać więcej w JSON)",
+      "title": "Realizacja — zdjęcie i film",
       "images": [
-        "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=1200&q=75"
+        "img/realizacje/realizacja-3.jpg"
       ],
-      "video": ""
+      "video": "img/realizacje/realizacja-3.mp4"
     }
   ]
 }
