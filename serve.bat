@@ -3,7 +3,7 @@ cd /d "%~dp0"
 echo.
 echo  Eco-Ogród — podgląd lokalny
 echo  W przeglądarce otwórz:  http://127.0.0.1:5500/
-echo  Galeria:                 http://127.0.0.1:5500/#galeria
+echo  Realizacje:              http://127.0.0.1:5500/#realizacje
 echo.
 echo  Zatrzymanie: Ctrl+C albo zamknij to okno.
 echo.

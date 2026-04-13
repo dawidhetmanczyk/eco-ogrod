@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eco-Ogród — Pielęgnacja i aranżacja zieleni | Śląsk</title>
-  <meta name="description" content="Kompleksowa pielęgnacja i aranżacja zieleni na terenie województwa śląskiego i w okolicy. Siedziba we Wieszowej — dojazd do klienta po uzgodnieniu. Całoroczny serwis ogrodów. Tel. 792 080 289.">
-  <meta name="keywords" content="ogród, pielęgnacja zieleni, aranżacja ogrodu, trawnik, żywopłot, krzewy, wycinka drzew, Śląsk, województwo śląskie, Wieszowa, Eco-Ogród">
+  <title>Eco-Ogród — Ogrody i zieleń na Śląsku | Realizacje, pielęgnacja, projekt</title>
+  <meta name="description" content="Eco-Ogród: projekt, pielęgnacja i realizacje ogrodów na Śląsku. Dom, firma, wspólnota — jeden zespół, cały rok. Siedziba we Wieszowej, dojazd po uzgodnieniu. Bezpłatna wycena. Tel. 792 080 289.">
+  <meta name="keywords" content="Eco-Ogród, realizacje ogrodów, pielęgnacja zieleni, aranżacja ogrodu, trawnik, żywopłot, wycinka drzew, ogrodnik Śląsk, województwo śląskie, Wieszowa">
   <meta name="author" content="Eco-Ogród">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.eco-ogrod.com.pl/">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Eco-Ogród — Pielęgnacja i aranżacja zieleni">
-  <meta property="og:description" content="Serwis zieleni na Śląsku i w okolicy — baza we Wieszowej. Zadbamy o Twój ogród i otoczenie.">
+  <meta property="og:title" content="Eco-Ogród — Zieleń, która robi różnicę · Śląsk">
+  <meta property="og:description" content="Realizacje ogrodów, pielęgnacja i projekt — od Wieszowej po cały region. Zobacz portfolio i umów bezpłatną wycenę.">
   <meta property="og:locale" content="pl_PL">
   <meta property="og:image" content="https://images.unsplash.com/photo-1768407313789-0eccf91f67ca?auto=format&fit=crop&w=1200&q=75">
   <meta name="twitter:card" content="summary_large_image">
@@ -310,6 +310,168 @@
       .hero-perk-icon::after {
         display: none;
       }
+      .o-nas-deco__sway {
+        animation: none !important;
+      }
+      .o-nas-leaf {
+        animation: none !important;
+        transform: none !important;
+        opacity: 0.45 !important;
+      }
+    }
+
+    /* O nas — dekoracja boczna (gałąź + listki) */
+    .o-nas-deco {
+      position: absolute;
+      z-index: 0;
+      top: clamp(2.5rem, 10vw, 5.5rem);
+      width: clamp(56px, 10vw, 120px);
+      color: rgb(4 120 87 / 0.72);
+    }
+    .o-nas-deco--left {
+      left: clamp(0.25rem, 2vw, 1.25rem);
+    }
+    .o-nas-deco--right {
+      right: clamp(0.25rem, 2vw, 1.25rem);
+      transform: scaleX(-1);
+    }
+    .o-nas-deco svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    @keyframes onasBranchSway {
+      0%,
+      100% {
+        transform: rotate(-6deg) translateY(0);
+      }
+      33% {
+        transform: rotate(5deg) translateY(-8px);
+      }
+      66% {
+        transform: rotate(-3.5deg) translateY(5px);
+      }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .o-nas-deco--left .o-nas-deco__sway {
+        animation: onasBranchSway 7.5s ease-in-out infinite;
+        transform-origin: 10% 92%;
+      }
+      .o-nas-deco--right .o-nas-deco__sway {
+        animation: onasBranchSway 9s ease-in-out infinite reverse;
+        transform-origin: 10% 92%;
+      }
+    }
+
+    /* O nas — latające listki przy nagłówku */
+    .o-nas-heading-wrap {
+      position: relative;
+      overflow: visible;
+    }
+    .o-nas-floating-leaves {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: min(100%, 42rem);
+      height: 7.5rem;
+      transform: translate(-50%, -58%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .o-nas-leaf {
+      position: absolute;
+      display: block;
+      width: 1.35rem;
+      height: 1.85rem;
+      color: rgb(5 150 105 / 0.82);
+      filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.06));
+    }
+    .o-nas-leaf svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .o-nas-leaf--a {
+      left: 2%;
+      top: 18%;
+    }
+    .o-nas-leaf--b {
+      left: 12%;
+      top: 72%;
+    }
+    .o-nas-leaf--c {
+      left: 42%;
+      top: -4%;
+    }
+    .o-nas-leaf--d {
+      right: 14%;
+      top: 8%;
+    }
+    .o-nas-leaf--e {
+      right: 3%;
+      top: 58%;
+    }
+    .o-nas-leaf--f {
+      left: 28%;
+      top: 88%;
+    }
+    @keyframes onasLeafDriftA {
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(-12deg) scale(1);
+      }
+      40% {
+        transform: translate(10px, -14px) rotate(8deg) scale(1.05);
+      }
+      70% {
+        transform: translate(-6px, 6px) rotate(-5deg) scale(0.96);
+      }
+    }
+    @keyframes onasLeafDriftB {
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(6deg) scale(1);
+      }
+      35% {
+        transform: translate(-12px, -10px) rotate(-14deg) scale(1.08);
+      }
+      65% {
+        transform: translate(8px, 12px) rotate(10deg) scale(0.92);
+      }
+    }
+    @keyframes onasLeafDriftC {
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      50% {
+        transform: translate(6px, 16px) rotate(18deg);
+      }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .o-nas-leaf--a {
+        animation: onasLeafDriftA 7s ease-in-out infinite;
+      }
+      .o-nas-leaf--b {
+        animation: onasLeafDriftB 8.5s ease-in-out infinite;
+        animation-delay: -1.2s;
+      }
+      .o-nas-leaf--c {
+        animation: onasLeafDriftC 6s ease-in-out infinite;
+        animation-delay: -0.5s;
+      }
+      .o-nas-leaf--d {
+        animation: onasLeafDriftB 7.8s ease-in-out infinite reverse;
+        animation-delay: -2s;
+      }
+      .o-nas-leaf--e {
+        animation: onasLeafDriftA 9s ease-in-out infinite reverse;
+        animation-delay: -3s;
+      }
+      .o-nas-leaf--f {
+        animation: onasLeafDriftC 8s ease-in-out infinite reverse;
+        animation-delay: -1.5s;
+      }
     }
 
     /* Hero: lista zalet — wejście + ikony */
@@ -367,8 +529,8 @@
       flex-shrink: 0;
       align-items: center;
       justify-content: center;
-      width: 2.25rem;
-      height: 2.25rem;
+      width: 2.625rem;
+      height: 2.625rem;
       border-radius: 9999px;
       background: linear-gradient(145deg, rgba(255, 255, 255, 0.28) 0%, rgba(167, 243, 208, 0.12) 100%);
       box-shadow:
@@ -376,10 +538,16 @@
         0 4px 14px rgba(0, 0, 0, 0.28);
       color: rgba(255, 255, 255, 0.95);
     }
+    @media (min-width: 640px) {
+      .hero-perk-icon {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
     .hero-perk-icon::after {
       content: '';
       position: absolute;
-      inset: -3px;
+      inset: -4px;
       border-radius: inherit;
       border: 1px solid rgba(167, 243, 208, 0.4);
       pointer-events: none;
@@ -412,7 +580,7 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Eco-Ogród",
-    "description": "Pielęgnacja i aranżacja zieleni. Siedziba we Wieszowej. Obsługujemy klientów na terenie województwa śląskiego i w pobliskich miejscowościach.",
+    "description": "Realizacje ogrodów, pielęgnacja i aranżacja zieleni na Śląsku. Siedziba we Wieszowej; dojazd do klienta po uzgodnieniu. Całoroczny serwis dla domów, firm i wspólnot.",
     "url": "https://www.eco-ogrod.com.pl/",
     "telephone": "+48792080289",
     "email": "kontakt@eco-ogrod.com.pl",
@@ -443,7 +611,7 @@
         </span>
         <span class="min-w-0 leading-tight">
           <span class="block font-display text-xl font-semibold tracking-tight text-emerald-950 sm:text-2xl">Eco-Ogród</span>
-          <span class="block text-xs font-medium text-neutral-600 sm:text-sm">Pielęgnacja i aranżacja zieleni</span>
+          <span class="block text-xs font-medium text-neutral-600 sm:text-sm">Zieleń, która robi różnicę</span>
         </span>
       </a>
 
@@ -454,7 +622,7 @@
       <ul class="hidden shrink-0 items-center gap-1 md:flex md:gap-2" id="desktop-nav">
         <li><a class="relative rounded-2xl px-4 py-3 text-base font-medium text-neutral-700 transition-colors after:pointer-events-none after:absolute after:bottom-1.5 after:left-4 after:right-4 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-emerald-900/35 after:transition-transform after:duration-300 hover:bg-stone-200/70 hover:text-emerald-950 hover:after:scale-x-100" href="#o-nas">O nas</a></li>
         <li><a class="relative rounded-2xl px-4 py-3 text-base font-medium text-neutral-700 transition-colors after:pointer-events-none after:absolute after:bottom-1.5 after:left-4 after:right-4 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-emerald-900/35 after:transition-transform after:duration-300 hover:bg-stone-200/70 hover:text-emerald-950 hover:after:scale-x-100" href="#uslugi">Usługi</a></li>
-        <li><a class="relative rounded-2xl px-4 py-3 text-base font-medium text-neutral-700 transition-colors after:pointer-events-none after:absolute after:bottom-1.5 after:left-4 after:right-4 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-emerald-900/35 after:transition-transform after:duration-300 hover:bg-stone-200/70 hover:text-emerald-950 hover:after:scale-x-100" href="#galeria">Galeria</a></li>
+        <li><a class="relative rounded-2xl px-4 py-3 text-base font-medium text-neutral-700 transition-colors after:pointer-events-none after:absolute after:bottom-1.5 after:left-4 after:right-4 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-emerald-900/35 after:transition-transform after:duration-300 hover:bg-stone-200/70 hover:text-emerald-950 hover:after:scale-x-100" href="#realizacje">Realizacje</a></li>
         <li><a class="ml-2 rounded-2xl bg-emerald-900 px-6 py-3 text-base font-semibold text-white shadow-md shadow-black/10 ring-1 ring-stone-900/10 transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-950 hover:shadow-lg active:translate-y-0" href="#kontakt">Kontakt</a></li>
       </ul>
     </nav>
@@ -463,7 +631,7 @@
       <ul class="flex flex-col px-5 py-4 sm:px-8 lg:px-12 xl:px-16">
         <li><a class="block rounded-2xl px-3 py-3.5 text-lg font-medium text-neutral-800 hover:bg-stone-100" href="#o-nas">O nas</a></li>
         <li><a class="block rounded-2xl px-3 py-3.5 text-lg font-medium text-neutral-800 hover:bg-stone-100" href="#uslugi">Usługi</a></li>
-        <li><a class="block rounded-2xl px-3 py-3.5 text-lg font-medium text-neutral-800 hover:bg-stone-100" href="#galeria">Galeria</a></li>
+        <li><a class="block rounded-2xl px-3 py-3.5 text-lg font-medium text-neutral-800 hover:bg-stone-100" href="#realizacje">Realizacje</a></li>
         <li><a class="mt-2 block rounded-2xl bg-emerald-900 px-3 py-3.5 text-center text-lg font-semibold text-white shadow-md" href="#kontakt">Kontakt</a></li>
       </ul>
     </div>
@@ -474,32 +642,32 @@
       <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_45%,rgba(0,0,0,0.35),transparent_65%)]" aria-hidden="true"></div>
       <div class="relative z-10 w-full max-w-3xl">
         <div class="hero-copy-panel rounded-3xl border border-white/15 px-6 py-8 text-center sm:px-10 sm:py-10">
-          <p class="mb-3 animate-fade-in-up text-sm font-semibold uppercase tracking-[0.2em] text-emerald-100/95 delay-100 sm:text-base">Całoroczny serwis zieleni</p>
-          <h1 class="mb-6 font-display text-4xl font-semibold leading-[1.15] tracking-tight text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] animate-fade-in-up delay-200 sm:text-5xl md:text-6xl">Zadbamy o Twój ogród i otoczenie.</h1>
-          <p class="mb-10 animate-fade-in-up text-lg font-medium leading-relaxed text-stone-100 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)] delay-300 sm:text-xl">Profesjonalna pielęgnacja i aranżacja zieleni na Śląsku i w okolicy — blisko natury, z poszanowaniem środowiska.</p>
+          <p class="mb-3 animate-fade-in-up text-sm font-semibold uppercase tracking-[0.2em] text-emerald-100/95 delay-100 sm:text-base">Profesjonalna zieleń · Śląsk</p>
+          <h1 class="mb-6 font-display text-4xl font-semibold leading-[1.15] tracking-tight text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] animate-fade-in-up delay-200 sm:text-5xl md:text-6xl">Ogród, który robi wrażenie — Ty masz spokój.</h1>
+          <p class="mb-10 animate-fade-in-up text-lg font-medium leading-relaxed text-stone-100 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)] delay-300 sm:text-xl">Projekt, nasadzenia, pielęgnacja i drzewa: jeden zespół na cały rok. Obsługujemy domy, firmy i wspólnoty — z Wieszowej, z dojazdem tam, gdzie się umówimy.</p>
           <div class="flex flex-col items-stretch justify-center gap-3 animate-fade-in-up delay-500 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
-            <a href="#kontakt" class="animate-cta-ring inline-flex min-h-[52px] min-w-[220px] items-center justify-center rounded-3xl bg-emerald-800 px-9 py-3.5 text-base font-semibold text-white shadow-xl shadow-black/30 ring-1 ring-white/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200/50 active:translate-y-0">Darmowa wycena</a>
+            <a href="#kontakt" class="animate-cta-ring inline-flex min-h-[52px] min-w-[220px] items-center justify-center rounded-3xl bg-emerald-800 px-9 py-3.5 text-base font-semibold text-white shadow-xl shadow-black/30 ring-1 ring-white/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200/50 active:translate-y-0">Umów bezpłatną wycenę</a>
             <a href="tel:+48792080289" class="inline-flex min-h-[52px] items-center justify-center rounded-3xl border border-white/55 bg-white/15 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/80 hover:bg-white/25 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-white/45 active:translate-y-0">Zadzwoń</a>
-            <a href="#uslugi" class="inline-flex min-h-[52px] items-center justify-center rounded-3xl border border-white/50 bg-white/10 px-7 py-3.5 text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/22 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 active:translate-y-0">Nasze usługi</a>
+            <a href="#realizacje" class="inline-flex min-h-[52px] items-center justify-center rounded-3xl border border-white/50 bg-white/10 px-7 py-3.5 text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/22 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 active:translate-y-0">Zobacz realizacje</a>
           </div>
-          <ul class="hero-perk-list mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-medium text-emerald-50/95 [text-shadow:0_1px_8px_rgba(0,0,0,0.45)] sm:gap-x-8 sm:gap-y-3" aria-label="Krótko o współpracy">
-            <li class="hero-perk-item flex items-center gap-2.5">
+          <ul class="hero-perk-list mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-sm font-medium text-emerald-50/95 [text-shadow:0_1px_8px_rgba(0,0,0,0.45)] sm:gap-x-8 sm:gap-y-3 sm:text-base" aria-label="Krótko o współpracy">
+            <li class="hero-perk-item flex items-center gap-3 sm:gap-3.5">
               <span class="hero-perk-icon" aria-hidden="true">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L11.967 13.5h3.75a.75.75 0 01.482 1.331l-7.5 6.25a.75.75 0 01-1.233-.72l1.65-9.821H5.25a.75.75 0 01-.545-1.233l7.5-8.25a.75.75 0 01.91-.131z" clip-rule="evenodd"/></svg>
+                <svg class="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
               </span>
-              Odpowiadamy sprawnie
+              Szybka odpowiedź na kontakt
             </li>
-            <li class="hero-perk-item flex items-center gap-2.5">
+            <li class="hero-perk-item flex items-center gap-3 sm:gap-3.5">
               <span class="hero-perk-icon" aria-hidden="true">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m2.25-18v18m13.5-18v18M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
+                <svg class="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m2.25-18v18m13.5-18v18M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
               </span>
-              Domy, firmy, wspólnoty
+              Dom, firma, wspólnota — pełna obsługa
             </li>
-            <li class="hero-perk-item flex items-center gap-2.5">
+            <li class="hero-perk-item flex items-center gap-3 sm:gap-3.5">
               <span class="hero-perk-icon" aria-hidden="true">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5a2.25 2.25 0 002.25-2.25m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5a2.25 2.25 0 012.25 2.25v7.5"/></svg>
+                <svg class="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5a2.25 2.25 0 002.25-2.25m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5a2.25 2.25 0 012.25 2.25v7.5"/></svg>
               </span>
-              Całorocznie — nie tylko sezon
+              Zieleń przez cały rok — nie tylko „na sezon”
             </li>
           </ul>
         </div>
@@ -509,19 +677,69 @@
       </p>
     </section>
 
-    <section id="o-nas" class="scroll-mt-24 bg-gradient-to-b from-neutral-50 to-stone-100/80 py-20 sm:py-24">
-      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <h2 class="mb-3 text-center font-display text-3xl font-semibold tracking-tight text-emerald-950 sm:text-4xl" data-reveal>O nas</h2>
-        <p class="mx-auto mb-12 max-w-2xl text-center text-neutral-600" data-reveal style="--reveal-delay: 70ms">Pielęgnacja z pasją i doświadczeniem</p>
+    <section id="o-nas" class="relative overflow-x-hidden scroll-mt-24 bg-gradient-to-b from-neutral-50 to-stone-100/80 py-20 sm:py-24">
+      <div class="o-nas-deco o-nas-deco--left pointer-events-none hidden md:block" aria-hidden="true">
+        <div class="o-nas-deco__sway">
+          <svg viewBox="0 0 100 268" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 258c4-48 8-92 22-134 10-28 24-54 42-78" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" opacity="0.82"/>
+            <path d="M28 168c14-8 32-10 48-4M32 118c12-14 30-22 50-20M38 78c10-18 26-30 44-36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+            <ellipse cx="72" cy="52" rx="11" ry="6.5" transform="rotate(-42 72 52)" fill="currentColor" opacity="0.58"/>
+            <ellipse cx="58" cy="72" rx="10" ry="6" transform="rotate(15 58 72)" fill="currentColor" opacity="0.48"/>
+            <ellipse cx="78" cy="98" rx="12" ry="7" transform="rotate(-25 78 98)" fill="currentColor" opacity="0.55"/>
+            <ellipse cx="62" cy="128" rx="11" ry="6.5" transform="rotate(35 62 128)" fill="currentColor" opacity="0.44"/>
+            <ellipse cx="82" cy="158" rx="10" ry="6" transform="rotate(-18 82 158)" fill="currentColor" opacity="0.52"/>
+            <ellipse cx="52" cy="188" rx="12" ry="7" transform="rotate(22 52 188)" fill="currentColor" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+      <div class="o-nas-deco o-nas-deco--right pointer-events-none hidden md:block" aria-hidden="true">
+        <div class="o-nas-deco__sway">
+          <svg viewBox="0 0 100 268" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 258c4-48 8-92 22-134 10-28 24-54 42-78" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" opacity="0.82"/>
+            <path d="M28 168c14-8 32-10 48-4M32 118c12-14 30-22 50-20M38 78c10-18 26-30 44-36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+            <ellipse cx="72" cy="52" rx="11" ry="6.5" transform="rotate(-42 72 52)" fill="currentColor" opacity="0.58"/>
+            <ellipse cx="58" cy="72" rx="10" ry="6" transform="rotate(15 58 72)" fill="currentColor" opacity="0.48"/>
+            <ellipse cx="78" cy="98" rx="12" ry="7" transform="rotate(-25 78 98)" fill="currentColor" opacity="0.55"/>
+            <ellipse cx="62" cy="128" rx="11" ry="6.5" transform="rotate(35 62 128)" fill="currentColor" opacity="0.44"/>
+            <ellipse cx="82" cy="158" rx="10" ry="6" transform="rotate(-18 82 158)" fill="currentColor" opacity="0.52"/>
+            <ellipse cx="52" cy="188" rx="12" ry="7" transform="rotate(22 52 188)" fill="currentColor" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+      <div class="relative z-[1] mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="o-nas-heading-wrap mx-auto mb-12 max-w-2xl">
+          <div class="o-nas-floating-leaves hidden sm:block" aria-hidden="true">
+            <span class="o-nas-leaf o-nas-leaf--a">
+              <svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M12 2c3.2 5.2 9 9.8 9 16.2 0 3.8-2.2 7.2-5.4 9.2L12 28l-3.6-.6C5.2 25.4 3 22 3 18.2 3 11.8 8.8 7.2 12 2z" opacity="0.95"/></svg>
+            </span>
+            <span class="o-nas-leaf o-nas-leaf--b">
+              <svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M12 3c-2.8 4-8 7.5-8 13.5 0 4 2.5 7.5 6 9l2 1.5 2-1.5c3.5-1.5 6-5 6-9 0-6-5.2-9.5-8-13.5z" opacity="0.9"/></svg>
+            </span>
+            <span class="o-nas-leaf o-nas-leaf--c">
+              <svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><ellipse cx="12" cy="15" rx="7.5" ry="12" transform="rotate(-22 12 15)" opacity="0.92"/></svg>
+            </span>
+            <span class="o-nas-leaf o-nas-leaf--d">
+              <svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M12 2c3.2 5.2 9 9.8 9 16.2 0 3.8-2.2 7.2-5.4 9.2L12 28l-3.6-.6C5.2 25.4 3 22 3 18.2 3 11.8 8.8 7.2 12 2z" opacity="0.88"/></svg>
+            </span>
+            <span class="o-nas-leaf o-nas-leaf--e">
+              <svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><ellipse cx="12" cy="15" rx="8" ry="11" transform="rotate(16 12 15)" opacity="0.9"/></svg>
+            </span>
+            <span class="o-nas-leaf o-nas-leaf--f">
+              <svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M12 3c-2.8 4-8 7.5-8 13.5 0 4 2.5 7.5 6 9l2 1.5 2-1.5c3.5-1.5 6-5 6-9 0-6-5.2-9.5-8-13.5z" opacity="0.85"/></svg>
+            </span>
+          </div>
+          <h2 class="relative z-[1] mb-3 text-center font-display text-3xl font-semibold tracking-tight text-emerald-950 sm:text-4xl" data-reveal>O nas</h2>
+          <p class="relative z-[1] mx-auto text-center text-neutral-600" data-reveal style="--reveal-delay: 70ms">Estetyka, ekologia i rzemiosło w jednym</p>
+        </div>
         <div class="mx-auto max-w-3xl rounded-3xl border border-stone-200/90 bg-white p-8 shadow-md shadow-stone-300/40 ring-1 ring-stone-200/60 sm:p-12" data-reveal style="--reveal-delay: 140ms">
           <p class="text-lg leading-relaxed text-neutral-700">
-            <strong class="font-semibold text-emerald-900">Eco-Ogród</strong> to zespół specjalistów, dla których zieleń to coś więcej niż praca — to sposób na harmonijne życie obok natury. Oferujemy <strong class="font-semibold text-emerald-900">kompleksową pielęgnację i aranżację zieleni</strong> dla domów, firm i wspólnot, z naciskiem na trwałe rozwiązania i estetykę dopasowaną do otoczenia.
+            <strong class="font-semibold text-emerald-900">Eco-Ogród</strong> to ludzie, dla których zieleń to nie tylko praca — to jakość życia obok natury. Łączymy <strong class="font-semibold text-emerald-900">aranżację, pielęgnację i serwis</strong> dla domów, firm i wspólnot: trwałe rozwiązania, estetyka dopasowana do miejsca i roślin, które naprawdę się u Was sprawdzą.
           </p>
           <p class="mt-5 text-lg leading-relaxed text-neutral-700">
-            Zapewniamy <strong class="font-semibold text-emerald-900">całoroczny serwis zieleni</strong>: od projektu i nasadzeń, przez bieżącą pielęgnację, po sezonowe zabiegi i bezpieczną obróbkę drzew. Dbamy o Twój ogród tak, by przez cały rok wyglądał zdrowo, schludnie i zapraszająco.
+            Od <strong class="font-semibold text-emerald-900">koncepcji i nasadzeń</strong>, przez koszenie, żywopłoty i zabiegi pielęgnacyjne, po <strong class="font-semibold text-emerald-900">bezpieczną obróbkę drzew</strong> — jesteśmy przy Tobie przez cały rok, żeby ogród wyglądał schludnie, zdrowo i zapraszająco bez Twojego stresu.
           </p>
           <p class="mt-5 text-lg leading-relaxed text-neutral-700">
-            <strong class="font-semibold text-emerald-900">Baza firmy znajduje się we Wieszowej</strong> — realizujemy zlecenia na terenie <strong class="font-semibold text-emerald-900">województwa śląskiego</strong> i w sąsiednich miejscowościach. Jeśli jesteś dalej, <strong class="font-semibold text-emerald-900">zadzwoń lub napisz</strong> — ustalimy, czy i na jakich warunkach możemy podjechać.
+            <strong class="font-semibold text-emerald-900">Pracujemy z bazy we Wieszowej</strong> i obsługujemy <strong class="font-semibold text-emerald-900">Śląsk oraz sąsiednie gminy</strong>. Planujesz inny rejon? <strong class="font-semibold text-emerald-900">Napisz lub zadzwoń</strong> — ustalimy, czy i na jakich zasadach dojedziemy.
           </p>
         </div>
       </div>
@@ -529,28 +747,28 @@
 
     <section id="dlaczego-eco" class="scroll-mt-24 border-y border-stone-200/90 bg-gradient-to-b from-white to-stone-50/90 py-14 sm:py-16" aria-labelledby="dlaczego-heading">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <h2 id="dlaczego-heading" class="mb-10 text-center font-display text-2xl font-semibold tracking-tight text-emerald-950 sm:text-3xl" data-reveal>Dlaczego warto napisać lub zadzwonić</h2>
+        <h2 id="dlaczego-heading" class="mb-10 text-center font-display text-2xl font-semibold tracking-tight text-emerald-950 sm:text-3xl" data-reveal>Dlaczego Eco-Ogród?</h2>
         <div class="grid gap-10 sm:grid-cols-3 sm:gap-8">
           <div class="text-center" data-reveal style="--reveal-delay: 0ms">
             <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-900 text-white shadow-md shadow-emerald-900/25 ring-1 ring-emerald-800/40" aria-hidden="true">
               <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
             <p class="font-display text-lg font-semibold text-emerald-950">Wycena bez presji</p>
-            <p class="mt-2 text-sm leading-relaxed text-neutral-600">Omówimy zakres i koszty — zdecydujesz spokojnie, bez zobowiązań.</p>
+            <p class="mt-2 text-sm leading-relaxed text-neutral-600">Rozmowa o zakresie i kosztach na spokojnie — Ty decydujesz, kiedy i czy wchodzimy w projekt. Zero nachalności.</p>
           </div>
           <div class="text-center" data-reveal style="--reveal-delay: 80ms">
             <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-900 text-white shadow-md shadow-emerald-900/25 ring-1 ring-emerald-800/40" aria-hidden="true">
               <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655-5.653a2.548 2.548 0 010-3.586L11.42 15.17z"/></svg>
             </div>
-            <p class="font-display text-lg font-semibold text-emerald-950">Jeden partner pod zieleń</p>
-            <p class="mt-2 text-sm leading-relaxed text-neutral-600">Od aranżacji po koszenie i drzewa — mniej logistyki po Twojej stronie.</p>
+            <p class="font-display text-lg font-semibold text-emerald-950">Jeden zespół — pełny zakres</p>
+            <p class="mt-2 text-sm leading-relaxed text-neutral-600">Od wizji ogrodu po koszenie i wysokie drzewa — jeden kontakt, spójny plan. Mniej chaosu, więcej efektu.</p>
           </div>
           <div class="text-center" data-reveal style="--reveal-delay: 160ms">
             <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-900 text-white shadow-md shadow-emerald-900/25 ring-1 ring-emerald-800/40" aria-hidden="true">
               <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
             </div>
-            <p class="font-display text-lg font-semibold text-emerald-950">Śląsk i sąsiedztwo</p>
-            <p class="mt-2 text-sm leading-relaxed text-neutral-600">Dojazd ustalamy indywidualnie — napisz, skąd jesteś, a się dogadamy.</p>
+            <p class="font-display text-lg font-semibold text-emerald-950">Śląsk i okolice</p>
+            <p class="mt-2 text-sm leading-relaxed text-neutral-600">Dojazd dobieramy pod Ciebie — podaj miejscowość w wiadomości, a od razu sprawdzimy, jak możemy pomóc.</p>
           </div>
         </div>
       </div>
@@ -559,10 +777,10 @@
     <section id="uslugi" class="scroll-mt-24 bg-gradient-to-b from-white via-stone-50/40 to-emerald-50/25 py-20 sm:py-24">
       <div class="relative z-[5] mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <h2 class="mb-3 text-center font-display text-3xl font-semibold tracking-tight text-emerald-950 sm:text-4xl" data-reveal>Usługi</h2>
-        <p class="mx-auto max-w-xl text-center text-lg font-medium text-emerald-900/90" data-reveal style="--reveal-delay: 40ms">W czym możemy Ci pomóc</p>
+        <p class="mx-auto max-w-xl text-center text-lg font-medium text-emerald-900/90" data-reveal style="--reveal-delay: 40ms">Pełen zakres pod Twoją działkę</p>
         <div class="mx-auto mb-12 mt-4 max-w-2xl space-y-2 text-center text-sm leading-relaxed text-neutral-600 sm:text-base" data-reveal style="--reveal-delay: 70ms">
-          <p>To najczęstsze obszary, nad którymi pracujemy — <strong class="font-semibold text-neutral-800">łączymy je w pakiet</strong> albo wykonujemy <strong class="font-semibold text-neutral-800">jednorazowo</strong>, według Twoich potrzeb.</p>
-          <p class="text-neutral-500">Ogród przy domu, teren firmy albo zieleń we wspólnocie — ustalimy zakres i terminy bez zobowiązań.</p>
+          <p>To pola, w których działamy najczęściej — <strong class="font-semibold text-neutral-800">składamy je w pakiet szyty na miarę</strong> albo realizujemy <strong class="font-semibold text-neutral-800">punktowo</strong>, dokładnie tak, jak potrzebujesz.</p>
+          <p class="text-neutral-500">Prywatny ogród, teren firmy czy zieleń przy blokach — ustalimy harmonogram i budżet <strong class="font-medium text-neutral-600">bez „niespodzianek” na starcie</strong>.</p>
         </div>
         <div class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           <article class="group flex flex-col rounded-3xl border border-emerald-900/15 bg-gradient-to-br from-emerald-50/90 to-white p-7 shadow-sm shadow-emerald-900/5 ring-1 ring-emerald-900/5 transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-800/30 hover:shadow-lg hover:shadow-emerald-900/10" data-reveal style="--reveal-delay: 0ms">
@@ -615,16 +833,16 @@
           </article>
         </div>
         <p class="mx-auto mt-12 max-w-2xl text-center text-neutral-600" data-reveal style="--reveal-delay: 120ms">
-          Nie widzisz dokładnie tego, czego potrzebujesz? <a class="font-semibold text-emerald-900 underline decoration-emerald-900/30 underline-offset-2 transition hover:text-emerald-800" href="#kontakt">Napisz lub zadzwoń</a> — często realizujemy też prace „pod zamówienie”.
+          Nie ma na liście Twojego tematu? <a class="font-semibold text-emerald-900 underline decoration-emerald-900/30 underline-offset-2 transition hover:text-emerald-800" href="#kontakt">Napisz lub zadzwoń</a> — robimy też nietypowe zlecenia i projekty indywidualne.
         </p>
       </div>
     </section>
 
-    <section id="galeria" class="scroll-mt-24 bg-stone-100/80 py-24 sm:py-28">
+    <section id="realizacje" class="scroll-mt-24 bg-stone-100/80 py-24 sm:py-28" aria-labelledby="realizacje-heading">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:max-w-[90rem] xl:px-12">
-        <h2 class="mb-4 text-center font-display text-4xl font-semibold tracking-tight text-emerald-950 sm:text-5xl" data-reveal>Galeria</h2>
-        <p class="mx-auto mb-4 max-w-3xl text-center text-lg text-neutral-600" data-reveal style="--reveal-delay: 60ms">Wybrane realizacje — kliknij kartę, aby zobaczyć zdjęcia i ewentualny film z danej inwestycji.</p>
-        <p class="mx-auto mb-12 max-w-2xl text-center text-sm text-neutral-500" data-reveal style="--reveal-delay: 100ms">To autentyczne efekty pracy — galeria rośnie wraz z kolejnymi projektami. Podoba się styl? <a class="font-medium text-emerald-900 underline decoration-emerald-900/25 underline-offset-2 hover:text-emerald-800" href="#kontakt">Porozmawiajmy o Twoim ogrodzie</a>.</p>
+        <h2 id="realizacje-heading" class="mb-4 text-center font-display text-4xl font-semibold tracking-tight text-emerald-950 sm:text-5xl" data-reveal>Realizacje</h2>
+        <p class="mx-auto mb-4 max-w-3xl text-center text-lg text-neutral-600" data-reveal style="--reveal-delay: 60ms">Nie musisz nam wierzyć na słowo — oto nasze projekty. Kliknij kartę, żeby przejrzeć zdjęcia i ewentualny film z realizacji.</p>
+        <p class="mx-auto mb-12 max-w-2xl text-center text-sm text-neutral-500" data-reveal style="--reveal-delay: 100ms">Portfolio rośnie z każdym sezonem. Podoba Ci się styl? <a class="font-medium text-emerald-900 underline decoration-emerald-900/25 underline-offset-2 hover:text-emerald-800" href="#kontakt">Zapytaj o podobny zakres u siebie</a>.</p>
         <p id="galeria-status" class="mb-6 hidden text-center text-sm text-amber-800" role="status"></p>
         <div id="galeria-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3 xl:gap-10" data-reveal style="--reveal-delay: 120ms"></div>
       </div>
@@ -634,8 +852,8 @@
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <h2 class="mb-3 text-center font-display text-3xl font-semibold tracking-tight text-emerald-950 sm:text-4xl" data-reveal>Kontakt</h2>
         <div class="mx-auto mb-12 max-w-2xl space-y-3 text-center" data-reveal style="--reveal-delay: 70ms">
-          <p class="text-neutral-600">Napisz lub zadzwoń — wycena i konsultacja bez zobowiązań.</p>
-          <p class="text-sm leading-relaxed text-neutral-500">Obsługujemy <strong class="font-medium text-neutral-600">Śląsk i okoliczne gminy</strong> — adres poniżej to nasza siedziba we Wieszowej. W sprawie dojazdu do Twojej lokalizacji najlepiej od razu zaznacz to w wiadomości lub podczas rozmowy.</p>
+          <p class="text-lg font-medium text-neutral-700">Zacznij od rozmowy — wstępna wycena i konsultacja <strong class="font-semibold text-emerald-900">bez żadnych zobowiązań</strong>.</p>
+          <p class="text-sm leading-relaxed text-neutral-500">Działamy z <strong class="font-medium text-neutral-600">Wieszowej</strong> na <strong class="font-medium text-neutral-600">Śląsku i w sąsiedztwie</strong>. Jeśli chcesz wstępną wycenę, od razu podaj miejscowość — przygotujemy się do rozmowy.</p>
         </div>
 
         <div class="grid gap-10 lg:grid-cols-2 lg:gap-12">
@@ -693,7 +911,7 @@
               </div>
               <div>
                 <label for="message" class="mb-1.5 block text-sm font-medium text-neutral-700">Wiadomość</label>
-                <textarea id="message" name="message" required rows="5" class="w-full resize-y rounded-2xl border border-stone-200 bg-stone-50/80 px-4 py-3.5 text-neutral-900 outline-none transition focus:border-emerald-900/40 focus:bg-white focus:ring-2 focus:ring-stone-300/80" placeholder="Opisz krótko, czego potrzebujesz…"></textarea>
+                <textarea id="message" name="message" required rows="5" class="w-full resize-y rounded-2xl border border-stone-200 bg-stone-50/80 px-4 py-3.5 text-neutral-900 outline-none transition focus:border-emerald-900/40 focus:bg-white focus:ring-2 focus:ring-stone-300/80" placeholder="Np. koszenie, żywopłot, nasadzenia — i skąd jesteś. Wrócimy z propozycją."></textarea>
               </div>
               <button type="submit" class="w-full rounded-3xl bg-emerald-900 py-4 text-base font-semibold text-white shadow-md shadow-stone-400/30 ring-1 ring-stone-900/10 transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-950 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 focus-visible:ring-offset-2 active:translate-y-0">Wyślij</button>
               <p class="text-xs text-neutral-500">Kliknięcie „Wyślij” otworzy program pocztowy z uzupełnioną wiadomością. Możesz też napisać bezpośrednio na adres e-mail lub zadzwonić.</p>
@@ -705,8 +923,8 @@
 
     <section class="scroll-mt-24 bg-gradient-to-br from-emerald-900 via-emerald-950 to-[#052e20] py-14 text-center sm:py-16" aria-labelledby="cta-koniec-heading">
       <div class="mx-auto max-w-3xl px-4 sm:px-6">
-        <h2 id="cta-koniec-heading" class="font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl" data-reveal>Gotowy na spokój wokół zieleni?</h2>
-        <p class="mt-4 text-base leading-relaxed text-emerald-100/85" data-reveal style="--reveal-delay: 60ms">Jedna rozmowa często wystarczy, żeby ustalić zakres i termin. Bez zobowiązań — najpierw poznajmy Twoją działkę.</p>
+        <h2 id="cta-koniec-heading" class="font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl" data-reveal>Chcesz ogród, który wygląda jak trzeba?</h2>
+        <p class="mt-4 text-base leading-relaxed text-emerald-100/85" data-reveal style="--reveal-delay: 60ms">Jedna rozmowa wystarczy, żeby ustalić zakres, termin i kierunek. Bez zobowiązań — zacznijmy od Twojej działki.</p>
         <div class="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center" data-reveal style="--reveal-delay: 120ms">
           <a href="tel:+48792080289" class="inline-flex min-h-[52px] items-center justify-center rounded-3xl bg-white px-8 py-3.5 text-base font-semibold text-emerald-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-emerald-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70">Zadzwoń: 792 080 289</a>
           <a href="#kontakt" class="inline-flex min-h-[52px] items-center justify-center rounded-3xl border border-white/45 bg-white/10 px-8 py-3.5 text-base font-semibold text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50">Formularz kontaktowy</a>
@@ -727,7 +945,7 @@
             </span>
             <div>
               <p class="font-display text-2xl font-semibold tracking-tight text-white sm:text-[1.65rem]">Eco-Ogród</p>
-              <p class="mt-1 text-sm leading-relaxed text-emerald-100/65">Pielęgnacja i aranżacja zieleni</p>
+              <p class="mt-1 text-sm leading-relaxed text-emerald-100/65">Realizacje ogrodów · pielęgnacja · Śląsk</p>
             </div>
           </div>
           <p class="mt-8 flex gap-3 text-sm leading-relaxed text-stone-400">
@@ -743,7 +961,7 @@
           <ul class="space-y-2.5 text-sm">
             <li><a class="inline-flex rounded-lg py-1 text-stone-300 transition hover:text-white" href="#o-nas">O nas</a></li>
             <li><a class="inline-flex rounded-lg py-1 text-stone-300 transition hover:text-white" href="#uslugi">Usługi</a></li>
-            <li><a class="inline-flex rounded-lg py-1 text-stone-300 transition hover:text-white" href="#galeria">Galeria</a></li>
+            <li><a class="inline-flex rounded-lg py-1 text-stone-300 transition hover:text-white" href="#realizacje">Realizacje</a></li>
             <li><a class="inline-flex rounded-lg py-1 text-stone-300 transition hover:text-white" href="#kontakt">Kontakt</a></li>
           </ul>
         </nav>
@@ -899,7 +1117,7 @@
         }
       }
 
-      /* Galeria z realizacje.json — wiele zdjęć + opcjonalny film na realizację */
+      /* Realizacje z realizacje.json — wiele zdjęć + opcjonalny film na projekt */
       (function galleryModule() {
         var grid = document.getElementById('galeria-grid');
         var statusEl = document.getElementById('galeria-status');
@@ -974,7 +1192,7 @@
         function renderGrid() {
           if (!projects.length) {
             grid.innerHTML =
-              '<p class="col-span-full rounded-2xl border border-dashed border-stone-300 bg-white/80 px-6 py-12 text-center text-neutral-600">Brak realizacji. Otwórz plik <strong class="text-emerald-900">realizacje.json</strong> i dodaj wpisy w tablicy <code class="rounded bg-stone-100 px-1.5 py-0.5 text-sm">projects</code>.</p>';
+              '<p class="col-span-full rounded-2xl border border-dashed border-stone-300 bg-white/80 px-6 py-12 text-center text-neutral-600">Tu pojawią się realizacje. Otwórz plik <strong class="text-emerald-900">realizacje.json</strong> i uzupełnij tablicę <code class="rounded bg-stone-100 px-1.5 py-0.5 text-sm">projects</code>.</p>';
             return;
           }
           grid.innerHTML = projects
@@ -1006,7 +1224,7 @@
                 '<span class="font-display text-xl font-semibold leading-snug text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.5)] sm:text-2xl lg:text-[1.65rem]">' +
                 escapeHtml(p.title) +
                 '</span>' +
-                '<span class="mt-2 block text-sm font-medium text-white/90">Zobacz zdjęcia i film →</span></div>' +
+                '<span class="mt-2 block text-sm font-medium text-white/90">Otwórz realizację →</span></div>' +
                 (badges
                   ? '<div class="absolute right-3 top-3 flex max-w-[85%] flex-wrap justify-end gap-2">' + badges + '</div>'
                   : '') +
