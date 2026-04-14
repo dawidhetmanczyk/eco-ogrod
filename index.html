@@ -711,6 +711,163 @@
         animation-delay: 0.7s;
       }
     }
+
+    /* ── Easter Egg: losowe koszenie kępy trawy ────────── */
+    .ee-patch {
+      position: fixed;
+      bottom: -2px;
+      z-index: 40;
+      cursor: pointer;
+      filter: drop-shadow(0 -1px 3px rgba(0,0,0,.12));
+      transition: filter .3s;
+    }
+    .ee-patch.is-cutting { cursor: default; pointer-events: none; }
+
+    .ee-g {
+      position: absolute;
+      bottom: 0;
+      width: var(--w);
+      height: var(--h);
+      left: var(--lx);
+      border-radius: 3px 2px 0 0;
+      background: var(--bg);
+      transform-origin: bottom center;
+      transform: rotate(var(--r1, 0deg));
+      animation: eeSway var(--sd, 2.5s) ease-in-out var(--dd, 0s) infinite;
+    }
+    .ee-g::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 45%;
+      border-radius: inherit;
+      background: linear-gradient(rgba(255,255,255,.22), transparent);
+    }
+    @keyframes eeSway {
+      0%, 100% { transform: rotate(var(--r1, 0deg)); }
+      50%      { transform: rotate(var(--r2, 0deg)); }
+    }
+
+    .ee-patch.is-growing .ee-g {
+      animation: eeGrow .55s cubic-bezier(.34,1.56,.64,1) both var(--gd, 0s);
+    }
+    @keyframes eeGrow {
+      from { transform: scaleY(0); opacity: 0; }
+      to   { transform: scaleY(1); opacity: 1; }
+    }
+
+    .ee-patch:not(.is-cutting):hover .ee-g { animation-duration: .3s !important; }
+    .ee-patch:not(.is-cutting):hover { filter: drop-shadow(0 0 10px rgba(34,197,94,.4)); }
+
+    .ee-soil {
+      position: absolute;
+      bottom: 0;
+      left: -6px;
+      right: -6px;
+      height: 5px;
+      background: linear-gradient(#5b3a1a, #7c5234);
+      border-radius: 3px 3px 0 0;
+      opacity: .65;
+    }
+
+    .ee-shears {
+      position: absolute;
+      bottom: 14px;
+      left: calc(50% + 4px);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .ee-shears.is-in { animation: eeShearsIn .4s ease-out forwards; }
+    @keyframes eeShearsIn {
+      from { opacity: 0; transform: translateX(35px) rotate(-8deg); }
+      to   { opacity: 1; transform: translateX(0) rotate(0deg); }
+    }
+    .ee-shears.is-out { animation: eeShearsOut .35s ease-in forwards; }
+    @keyframes eeShearsOut {
+      from { opacity: 1; transform: translateX(0) rotate(0deg); }
+      to   { opacity: 0; transform: translateX(40px) rotate(12deg); }
+    }
+
+    .ee-sh-top { transform: rotate(-10deg); transform-origin: 38px 18px; }
+    .ee-sh-bot { transform: rotate(10deg); transform-origin: 38px 18px; }
+    .ee-shears.is-snip .ee-sh-top { animation: eeSnipT .5s ease-in-out; }
+    .ee-shears.is-snip .ee-sh-bot { animation: eeSnipB .5s ease-in-out; }
+    @keyframes eeSnipT {
+      0%   { transform: rotate(-10deg); }
+      25%  { transform: rotate(3deg); }
+      45%  { transform: rotate(-8deg); }
+      70%  { transform: rotate(3deg); }
+      100% { transform: rotate(-10deg); }
+    }
+    @keyframes eeSnipB {
+      0%   { transform: rotate(10deg); }
+      25%  { transform: rotate(-3deg); }
+      45%  { transform: rotate(8deg); }
+      70%  { transform: rotate(-3deg); }
+      100% { transform: rotate(10deg); }
+    }
+
+    .ee-clip {
+      position: absolute;
+      border-radius: 2px;
+      background: var(--cc);
+      width: var(--cw);
+      height: var(--ch);
+      animation: eeClipFly .7s cubic-bezier(.2,.8,.3,1) forwards;
+    }
+    @keyframes eeClipFly {
+      from { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+      to   { opacity: 0; transform: translate(var(--fx), var(--fy)) rotate(var(--fr)); }
+    }
+
+    .ee-spark {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--sc);
+      animation: eeSpark .5s ease-out forwards;
+    }
+    @keyframes eeSpark {
+      from { transform: translate(0, 0) scale(1.5); opacity: 1; }
+      to   { transform: translate(var(--sx), var(--sy)) scale(0); opacity: 0; }
+    }
+
+    .ee-g.is-cut { animation: eeCut .45s ease-in forwards !important; }
+    @keyframes eeCut { to { transform: scaleY(.2); opacity: .25; } }
+
+    .ee-msg {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      white-space: nowrap;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #065f46;
+      background: rgba(209, 250, 229, .95);
+      border: 1px solid #a7f3d0;
+      padding: 5px 14px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+      pointer-events: none;
+      opacity: 0;
+      animation: eeMsg 3s ease-out forwards;
+    }
+    @keyframes eeMsg {
+      0%   { opacity: 0; transform: translateX(-50%) translateY(6px); }
+      12%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+      75%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    }
+
+    .ee-patch.is-done { animation: eeDone .5s ease-out forwards; }
+    @keyframes eeDone { to { opacity: 0; transform: translateY(10px) scale(.9); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ee-patch { display: none !important; }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -1689,6 +1846,138 @@
           });
         }, { threshold: 0.3 });
         counters.forEach(function (el) { obs.observe(el); });
+      })();
+
+      /* Easter Egg – losowe koszenie kępy trawy */
+      (function grassEasterEgg() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        var msgs = [
+          '✂️ Skoszone!',
+          '🌿 Eco-Ogród przyciął!',
+          '✂️ Kępa ogarnięta!',
+          '🌱 Porządek musi być!',
+          '✂️ Nożyce w akcji!'
+        ];
+        var cuts = 0;
+
+        function rr(a, b) { return Math.random() * (b - a) + a; }
+        function ri(a, b) { return Math.floor(rr(a, b + 1)); }
+
+        var SHEARS = '<svg viewBox="0 0 60 36" width="54" height="32" fill="none" style="overflow:visible;display:block">'
+          + '<g class="ee-sh-top"><path d="M1,17 Q12,11 38,14 L38,18 L1,18Z" fill="#475569"/>'
+          + '<path d="M38,16 C41,12 45,10 49,10" stroke="#78350f" stroke-width="2.5" stroke-linecap="round"/>'
+          + '<circle cx="50" cy="10" r="5" stroke="#78350f" stroke-width="2"/></g>'
+          + '<g class="ee-sh-bot"><path d="M1,19 Q12,25 38,22 L38,18 L1,18Z" fill="#64748b"/>'
+          + '<path d="M38,20 C41,24 45,26 49,26" stroke="#92400e" stroke-width="2.5" stroke-linecap="round"/>'
+          + '<circle cx="50" cy="26" r="5" stroke="#92400e" stroke-width="2"/></g>'
+          + '<circle cx="38" cy="18" r="2.5" fill="#d4d4d8" stroke="#a1a1aa" stroke-width=".8"/></svg>';
+
+        function spawn() {
+          var el = document.createElement('div');
+          el.className = 'ee-patch is-growing';
+          el.style.left = rr(8, 82) + 'vw';
+          el.setAttribute('title', 'Kliknij mnie!');
+
+          var n = ri(7, 9), tw = n * 7;
+          var greens = ['#16a34a', '#22c55e', '#15803d', '#4ade80', '#166534'];
+          for (var i = 0; i < n; i++) {
+            var g = document.createElement('div');
+            g.className = 'ee-g';
+            var h = rr(26, 54);
+            g.style.setProperty('--w', rr(3.5, 6) + 'px');
+            g.style.setProperty('--h', h + 'px');
+            g.style.height = h + 'px';
+            g.style.setProperty('--lx', (i * 7 - tw / 2) + 'px');
+            g.style.setProperty('--bg', greens[ri(0, greens.length - 1)]);
+            g.style.setProperty('--r1', rr(-9, -2) + 'deg');
+            g.style.setProperty('--r2', rr(2, 9) + 'deg');
+            g.style.setProperty('--sd', rr(2, 3.5) + 's');
+            g.style.setProperty('--dd', rr(0, .5) + 's');
+            g.style.setProperty('--gd', (i * .055) + 's');
+            el.appendChild(g);
+          }
+
+          var soil = document.createElement('div');
+          soil.className = 'ee-soil';
+          el.appendChild(soil);
+
+          document.body.appendChild(el);
+          setTimeout(function () { el.classList.remove('is-growing'); }, 1200);
+
+          el.addEventListener('click', function () {
+            if (el.classList.contains('is-cutting')) return;
+            cut(el);
+          });
+        }
+
+        function cut(el) {
+          el.classList.add('is-cutting');
+          el.removeAttribute('title');
+          cuts++;
+
+          var sh = document.createElement('div');
+          sh.className = 'ee-shears';
+          sh.innerHTML = SHEARS;
+          el.appendChild(sh);
+
+          sh.classList.add('is-in');
+          setTimeout(function () { sh.classList.add('is-snip'); }, 380);
+
+          setTimeout(function () {
+            for (var i = 0; i < 8; i++) {
+              var s = document.createElement('div');
+              s.className = 'ee-spark';
+              s.style.left = rr(-15, 35) + 'px';
+              s.style.bottom = rr(16, 26) + 'px';
+              s.style.setProperty('--sx', rr(-24, 24) + 'px');
+              s.style.setProperty('--sy', rr(-30, -6) + 'px');
+              s.style.setProperty('--sc',
+                ['#fde047', '#fbbf24', '#f59e0b', '#a7f3d0', '#86efac'][ri(0, 4)]);
+              el.appendChild(s);
+            }
+          }, 520);
+
+          setTimeout(function () {
+            el.querySelectorAll('.ee-g').forEach(function (b) {
+              var bh = parseFloat(b.style.height);
+              var clipH = bh * rr(.25, .45);
+              var c = document.createElement('div');
+              c.className = 'ee-clip';
+              c.style.left = b.style.getPropertyValue('--lx');
+              c.style.bottom = (bh - clipH + 2) + 'px';
+              c.style.setProperty('--cw', parseFloat(b.style.getPropertyValue('--w')) + 'px');
+              c.style.setProperty('--ch', clipH + 'px');
+              c.style.setProperty('--cc', b.style.getPropertyValue('--bg'));
+              c.style.setProperty('--fx', rr(-50, 50) + 'px');
+              c.style.setProperty('--fy', rr(-75, -20) + 'px');
+              c.style.setProperty('--fr', rr(-220, 220) + 'deg');
+              el.appendChild(c);
+              b.classList.add('is-cut');
+            });
+          }, 650);
+
+          setTimeout(function () {
+            sh.classList.remove('is-in', 'is-snip');
+            sh.classList.add('is-out');
+          }, 950);
+
+          setTimeout(function () {
+            var m = document.createElement('div');
+            m.className = 'ee-msg';
+            m.textContent = msgs[cuts % msgs.length];
+            el.appendChild(m);
+          }, 850);
+
+          setTimeout(function () { el.classList.add('is-done'); }, 3400);
+
+          setTimeout(function () {
+            if (el.parentNode) el.parentNode.removeChild(el);
+            setTimeout(spawn, rr(25000, 50000));
+          }, 3900);
+        }
+
+        setTimeout(spawn, rr(6000, 12000));
       })();
     })();
   </script>
